@@ -31,3 +31,13 @@ repos:
         - --remove-unused-variables
         - --remove-all-unused-imports
         - --expand-star-imports
+# isort configuration
+-   repo: https://github.com/pycqa/isort
+    rev: 5.13.2
+    hooks:
+    -   id: isort
+        name: isort (python)
+        args: ['--profile', 'black', '--filter-files', 'true']
+
+default_language_version:
+  python: python3.11
