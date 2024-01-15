@@ -38,6 +38,12 @@ repos:
     -   id: isort
         name: isort (python)
         args: ['--profile', 'black', '--filter-files', 'true']
+# mypy configuration
+-   repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.8.0
+    hooks:
+    -   id: mypy
+        args: [--strict, --ignore-missing-imports]
 
 default_language_version:
   python: python3.11
