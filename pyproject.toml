@@ -15,6 +15,7 @@ psycopg2-binary = "^2.9.9"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^3.6.0"
+django-stubs = "^4.2.7"
 
 [tool.black]
 max-line-length = 120
@@ -30,6 +31,16 @@ exclude = """
     __pycache__,
     */migrations/*
     """
+
+[tool.mypy]
+strict = true
+ignore_missing_imports = true
+
+plugins = ["mypy_django_plugin.main" ]
+
+[tool.django-stubs]
+django_settings_module = "src.config.settings"
+ignore_missing_imports = true
 
 [build-system]
 requires = ["poetry-core"]
