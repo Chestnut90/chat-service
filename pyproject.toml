@@ -16,6 +16,21 @@ psycopg2-binary = "^2.9.9"
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^3.6.0"
 
+[tool.black]
+max-line-length = 120
+force-exclude = 'migrations'
+
+[tool.flake8]
+max-line-length = 120
+extend-ignore = """
+    E203
+    """
+exclude = """
+    .git,
+    __pycache__,
+    */migrations/*
+    """
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
