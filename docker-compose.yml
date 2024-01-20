@@ -1,0 +1,31 @@
+version: '3.8'
+
+volumes:
+  postgres_dev:
+
+
+services:
+  db:
+    container_name: postgres
+    image: postgres:latest
+    volumes:
+      - postgres_dev:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=chat_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_INITDB_ARGS=--encoding=UTF-8
+      - TZ=Asia/Seoul
+    ports:
+      - "5432:5432"
+
+  web:
+    container_name: django
+    build: . # current Dockerfile
+    command: python ./src/manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./src:/app/src
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
