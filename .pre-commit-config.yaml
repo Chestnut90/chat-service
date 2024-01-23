@@ -40,13 +40,14 @@ repos:
         name: isort (python)
         args: ['--profile', 'black', '--filter-files', 'true']
 # mypy configuration
--   repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.8.0
-    hooks:
-    -   id: mypy
-        additional_dependencies:
-        - django-stubs
-        - psycopg2-binary
+# -   repo: local
+#     hooks:
+#     -   id: mypy
+#         name: mypy
+#         entry: .venv/bin/mypy
+#         language: python
+#         types: [python]
+#         args: [--config-file=pyproject.toml]
 
 default_language_version:
   python: python3.11
