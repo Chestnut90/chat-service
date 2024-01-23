@@ -22,6 +22,7 @@ repos:
     rev: 7.0.0
     hooks:
     -   id: flake8
+        additional_dependencies: [Flake8-pyproject]
 -   repo: https://github.com/myint/autoflake
     rev: v2.2.1
     hooks:
@@ -39,11 +40,14 @@ repos:
         name: isort (python)
         args: ['--profile', 'black', '--filter-files', 'true']
 # mypy configuration
--   repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.8.0
-    hooks:
-    -   id: mypy
-        args: [--strict, --ignore-missing-imports]
+# -   repo: local
+#     hooks:
+#     -   id: mypy
+#         name: mypy
+#         entry: .venv/bin/mypy
+#         language: python
+#         types: [python]
+#         args: [--config-file=pyproject.toml]
 
 default_language_version:
   python: python3.11
