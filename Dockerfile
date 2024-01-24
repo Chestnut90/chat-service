@@ -9,6 +9,7 @@ ENV PYTHONUNBUFFERED 1
 RUN mkdir /app/
 WORKDIR /app
 COPY pyproject.toml /app/
+COPY .env /app/
 RUN pip install poetry
 RUN poetry config virtualenvs.create false
 RUN poetry install --no-root
