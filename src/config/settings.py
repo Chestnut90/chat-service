@@ -40,6 +40,10 @@ CUSTOM_APPS = [
     "users",
 ]
 
+THIRD_PARTY_APPS = [
+    "rest_framework",
+]
+
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -47,6 +51,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    *THIRD_PARTY_APPS,
     *CUSTOM_APPS,
 ]
 
