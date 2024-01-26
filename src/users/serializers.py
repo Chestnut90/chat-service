@@ -16,3 +16,15 @@ class UserSignupSerializer(ModelSerializer):
     def create(self, validated_data):
         user = get_user_model().objects.create_user(**validated_data)
         return user
+
+
+class SwaggerResponseUserSignupSerializer(ModelSerializer):
+    class Meta:
+        model = get_user_model()
+        fields = ("username",)
+
+    def create(self, validated_data):
+        raise NotImplementedError()
+
+    def update(self, instance, validated_data):
+        raise NotImplementedError()
