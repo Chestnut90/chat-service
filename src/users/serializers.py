@@ -1,6 +1,8 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.password_validation import validate_password
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import CharField, ModelSerializer
+
+from common.serializers import SwaggerResponseSerializerBase
 
 
 class UserSignupSerializer(ModelSerializer):
@@ -18,13 +20,14 @@ class UserSignupSerializer(ModelSerializer):
         return user
 
 
-class SwaggerResponseUserSignupSerializer(ModelSerializer):
-    class Meta:
-        model = get_user_model()
-        fields = ("username",)
+class SwaggerUserSignupResponseSerializer(SwaggerResponseSerializerBase):
+    username = CharField()
 
-    def create(self, validated_data):
-        raise NotImplementedError()
 
-    def update(self, instance, validated_data):
-        raise NotImplementedError()
+class SwaggerTokenObtainPairResponseSerializer(SwaggerResponseSerializerBase):
+    access = CharField()
+    refresh = CharField()
+
+
+class SwaggerTokenRefreshResponseSerializer(SwaggerResponseSerializerBase):
+    access = CharField()
