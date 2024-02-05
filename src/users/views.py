@@ -3,6 +3,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.views import (
+    TokenBlacklistView,
     TokenObtainPairView,
     TokenRefreshView,
     TokenVerifyView,
@@ -65,5 +66,10 @@ class TokenVerifyAPIView(TokenVerifyView):
             status.HTTP_400_BAD_REQUEST: "error",
         },
     )
+    def post(self, request, *args, **kwargs):
+        return super().post(request, *args, **kwargs)
+
+
+class TokenBlackListAPIView(TokenBlacklistView):
     def post(self, request, *args, **kwargs):
         return super().post(request, *args, **kwargs)
