@@ -3,6 +3,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.views import (
+    TokenBlacklistView,
     TokenObtainPairView,
     TokenRefreshView,
     TokenVerifyView,
@@ -32,7 +33,7 @@ class SignupAPIView(APIView):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
-class TokenObtainPairAPIView(TokenObtainPairView):
+class SigninAPIView(TokenObtainPairView):
     @swagger_auto_schema(
         operation_description="사용자 토큰 발급",
         responses={
@@ -63,6 +64,19 @@ class TokenVerifyAPIView(TokenVerifyView):
         responses={
             status.HTTP_200_OK: "ok",
             status.HTTP_400_BAD_REQUEST: "error",
+        },
+    )
+    def post(self, request, *args, **kwargs):
+        return super().post(request, *args, **kwargs)
+
+
+class SignoutAPIView(TokenBlacklistView):
+    @swagger_auto_schema(
+        operation_description="사용자 로그아웃, 토큰 만료",
+        responses={
+            status.HTTP_200_OK: "ok",
+            status.HTTP_400_BAD_REQUEST: "required data",
+            status.HTTP_401_UNAUTHORIZED: "Token is blacklisted",
         },
     )
     def post(self, request, *args, **kwargs):
