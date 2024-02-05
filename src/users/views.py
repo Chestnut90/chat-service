@@ -70,6 +70,14 @@ class TokenVerifyAPIView(TokenVerifyView):
         return super().post(request, *args, **kwargs)
 
 
-class TokenBlackListAPIView(TokenBlacklistView):
+class SignoutAPIView(TokenBlacklistView):
+    @swagger_auto_schema(
+        operation_description="사용자 로그아웃, 토큰 만료",
+        responses={
+            status.HTTP_200_OK: "ok",
+            status.HTTP_400_BAD_REQUEST: "required data",
+            status.HTTP_401_UNAUTHORIZED: "Token is blacklisted",
+        },
+    )
     def post(self, request, *args, **kwargs):
         return super().post(request, *args, **kwargs)
