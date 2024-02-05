@@ -5,7 +5,7 @@ from rest_framework.test import APITestCase
 
 
 class TokenObtainAPITestCase(APITestCase):
-    token_url = reverse("token_obtain_pair")
+    url = reverse("signin")
     token_refresh_url = reverse("token_refresh")
     token_verify_url = reverse("token_verify")
 
@@ -21,7 +21,7 @@ class TokenObtainAPITestCase(APITestCase):
 
     def test_token_obtain_success(self):
         response = self.client.post(
-            path=self.token_url,
+            path=self.url,
             data={
                 "username": self.username,
                 "password": self.password,
@@ -35,18 +35,18 @@ class TokenObtainAPITestCase(APITestCase):
 
     def test_token_obatin_failed_no_fields(self):
         response = self.client.post(
-            path=self.token_url,
+            path=self.url,
             data={},
         )
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(status.HTTP_400_BAD_REQUEST, response.status_code)
 
     def test_token_obtain_failed_invalid_password(self):
         response = self.client.post(
-            path=self.token_url,
+            path=self.url,
             data={
                 "username": self.username,
                 "password": "",
             },
         )
 
-        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertEqual(status.HTTP_400_BAD_REQUEST, response.status_code)

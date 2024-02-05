@@ -33,7 +33,7 @@ class SignupAPIView(APIView):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
-class TokenObtainPairAPIView(TokenObtainPairView):
+class SigninAPIView(TokenObtainPairView):
     @swagger_auto_schema(
         operation_description="사용자 토큰 발급",
         responses={

@@ -18,7 +18,7 @@ class SignoutAPITestCase(APITestCase):
         )
 
     def setUp(self):
-        url = reverse("token_obtain_pair")
+        url = reverse("signin")
         response = self.client.post(
             url,
             data={
