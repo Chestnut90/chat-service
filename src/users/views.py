@@ -102,4 +102,4 @@ class UserDeleteAPIView(APIView):
         user = get_object_or_404(get_user_model(), id=request.user.id)
         user.delete()
 
-        return Response(status_code=status.HTTP_204_NO_CONTENT)
+        return Response(status=status.HTTP_204_NO_CONTENT)
