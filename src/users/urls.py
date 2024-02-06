@@ -6,6 +6,7 @@ from users.views import (
     SignupAPIView,
     TokenRefreshAPIView,
     TokenVerifyAPIView,
+    UserDeleteAPIView,
 )
 
 urlpatterns = [
@@ -14,4 +15,5 @@ urlpatterns = [
     path("token/refresh/", TokenRefreshAPIView.as_view(), name="token_refresh"),
     path("token/verify/", TokenVerifyAPIView.as_view(), name="token_verify"),
     path("signout/", SignoutAPIView.as_view(), name="signout"),
+    path("delete/", UserDeleteAPIView.as_view(), name="delete"),
 ]

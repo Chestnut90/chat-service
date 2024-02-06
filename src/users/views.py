@@ -1,7 +1,9 @@
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework_simplejwt.tokens import BlacklistedToken, OutstandingToken
 from rest_framework_simplejwt.views import (
     TokenBlacklistView,
     TokenObtainPairView,
@@ -81,3 +83,27 @@ class SignoutAPIView(TokenBlacklistView):
     )
     def post(self, request, *args, **kwargs):
         return super().post(request, *args, **kwargs)
+
+
+class UserDeleteAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    @swagger_auto_schema(
+        operation_summary="사용자 회원 탈퇴",
+        operation_description="인증된 사용자로 부터 회원 탈퇴를 진행하고 발급된 토큰을 무효화",
+        responses={
+            status.HTTP_204_NO_CONTENT: "ok",
+            status.HTTP_401_UNAUTHORIZED: "unauthorized",
+        },
+    )
+    def post(self, request, *args, **kwargs):
+        self.destory_user_tokens(request.user)
+
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+    def destory_user_tokens(self, user):
+        tokens = OutstandingToken.objects.filter(user_id=user.id)
+        for token in tokens:
+            BlacklistedToken.objects.get_or_create(token=token)
+
+        user.delete()
